@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace miniORM.TestCase
 {
-    public class DataAccess
+    /// <summary>
+    /// 数据访问层
+    /// </summary>
+    public class DataAccessLayer
     {
         private static string DBConn = "server=.\\sqlexpress;database=testdb;uid=sa;pwd=sa;";
         private static DBHelper CreateDBHelper()
@@ -18,13 +19,16 @@ namespace miniORM.TestCase
             var reader = db.ExecuteReader("select BatchID, Cluster, AliasCluster, ClusterIP, ClusterVPort, MachineName, IPAddress, Port, [Status ], CreateTime, Zone from [dbo].[CF_WebInfo]");
             return EntityHelper<WebInfo>.SetValues(reader);
         }
-        public static WebInfo GetDataOn()
+        public static WebInfo GetDataOne()
         {
             DBHelper db = CreateDBHelper();
             var reader = db.ExecuteReader("select top 1 BatchID, Cluster, AliasCluster, ClusterIP, ClusterVPort, MachineName, IPAddress, Port, [Status ], CreateTime, Zone from [dbo].[CF_WebInfo]");
             return EntityHelper<WebInfo>.SetValue(reader);
         }
     }
+    /// <summary>
+    /// 实体层
+    /// </summary>
     public class WebInfo : BaseEntity
     {
         public int BatchID { get; set; }
@@ -54,14 +58,20 @@ namespace miniORM.TestCase
             Zone = GetField<int?>(reader, lowerFields["zone"]);
         }
     }
-
+    /// <summary>
+    /// 业务逻辑层
+    /// </summary>
     public class BusinessLayer
     {
-        public void Index()
+        public List<WebInfo> WebInfos()
         {
-            var data = DataAccess.GetData();
-            //var da = DataAccess.GetDataOn();
-            return View(data);
+            var data = DataAccessLayer.GetData();
+            return data;
+        }
+        public WebInfo WebInfo()
+        {
+            var data = DataAccessLayer.GetDataOne();
+            return data;
         }
     }
 }
