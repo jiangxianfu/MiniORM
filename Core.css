@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
-namespace minORM
+namespace miniORM
 {
+    /// <summary>
+    /// 实体基类
+    /// </summary>
     public abstract class BaseEntity
     {
         /// <summary>
@@ -35,6 +37,10 @@ namespace minORM
             throw new InvalidCastException(string.Format("Invalid cast from type \"{0}\" to type \"{1}\".", obj.GetType().FullName, dtype.FullName));
         }
     }
+    /// <summary>
+    /// 实体映射帮助类
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class EntityHelper<T>
     where T : BaseEntity, new()
     {
@@ -94,6 +100,9 @@ namespace minORM
             return null;
         }
     }
+    /// <summary>
+    /// reader映射帮助类
+    /// </summary>
     public class EntityHelper
     {
         public static T To<T>(object reader) where T : IConvertible
@@ -109,7 +118,6 @@ namespace minORM
             return (T)Convert.ChangeType(reader, typecode);
         }
     }
-
     /// <summary>
     /// 数据库操作基类
     /// </summary>
@@ -396,6 +404,9 @@ namespace minORM
             }
         }
     }
+    /// <summary>
+    /// mssql数据操作接口类
+    /// </summary>
     public class MSSQLHelper : DBHelper
     {
         public MSSQLHelper(string connstring)
@@ -417,7 +428,9 @@ namespace minORM
             return new SqlDataAdapter();
         }
     }
-
+    /// <summary>
+    /// mysql数据操作接口类
+    /// </summary>
     public class MYSQLHelper : DBHelper
     {
         public MYSQLHelper(string connstring)
