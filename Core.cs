@@ -12,7 +12,7 @@ namespace miniORM
     public abstract class BaseEntity
     {
         /// <summary>
-        /// 抽象方法
+        /// 实现将数据库字段映射到对象中字段
         /// </summary>
         /// <param name="reader"></param>
         internal abstract void SetEntity(IDataReader reader, Dictionary<string, int> lowerFields);
