@@ -132,11 +132,6 @@ namespace miniORM
         {
             dbconnection = CreateConnection(connstring);
         }
-        ~DBHelper()
-        {
-            if (dbconnection != null)
-                dbconnection.Close();
-        }
         public void Dispose()
         {
             if (dbconnection != null)
