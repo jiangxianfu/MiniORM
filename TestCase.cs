@@ -16,13 +16,13 @@ namespace miniORM.TestCase
         public static List<WebInfo> GetData()
         {
             DBHelper db = CreateDBHelper();
-            var reader = db.ExecuteReader("select BatchID, Cluster, AliasCluster, ClusterIP, ClusterVPort, MachineName, IPAddress, Port, [Status ], CreateTime, Zone from [dbo].[CF_WebInfo] (nolock)");
+            var reader = db.ExecuteReader("select * from[fo] (nolock)");
             return EntityHelper<WebInfo>.SetValues(reader);
         }
         public static WebInfo GetDataOne()
         {
             DBHelper db = CreateDBHelper();
-            var reader = db.ExecuteReader("select top 1 BatchID, Cluster, AliasCluster, ClusterIP, ClusterVPort, MachineName, IPAddress, Port, [Status ], CreateTime, Zone from [dbo].[CF_WebInfo] (nolock)");
+            var reader = db.ExecuteReader("select top 1 BatchID, Cluster, AliasCluster, ClusterIP, ClusterVPort, MachineName, IPAddress, Port, [Status ], CreateTime, Zone from [dbo].[aaab] (nolock)");
             return EntityHelper<WebInfo>.SetValue(reader);
         }
     }
